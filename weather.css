@@ -10,8 +10,23 @@ body {
     background-color:#353535;
 }
 
+::-webkit-scrollbar {
+    width: 12px;
+}
+ 
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+    border-radius: 10px;
+}
+ 
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
+}
+
 #container {
-	max-width: 880px;
+    max-width: 880px;
+    height: 400px;
 	margin: 0 auto;
     /*background-color: #282828;*/
     position: relative;
@@ -22,6 +37,8 @@ body {
 
 header {
     position: fixed;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 40px;
     background-color: #000;
@@ -29,13 +46,19 @@ header {
     padding-bottom: 5px;
     padding-left: 30px;
     padding-right: 30px;
-    color: #fff;
     font-family: 'Nunito', sans-serif;
     text-transform: uppercase;
     z-index: 1000;
 }
 
-#part_1a {
+header a {
+    text-decoration: none;
+    color: #fff;
+}
+
+/* ---- ---- */
+
+#part_1_0 {
     border-top-left-radius: 7px;
     border-top-right-radius: 7px;
     background-color: #4f4f4f;
@@ -47,7 +70,7 @@ header {
     margin-top: 20px;
 }
 
-#part_1b {
+#part_1_1 {
     background-color: #4f4f4f;
     padding-top: 5px;
     padding-bottom: 5px;
@@ -56,7 +79,7 @@ header {
     text-align: center;
 }
 
-#part_1c {
+#part_1_2 {
     border-bottom-left-radius: 7px;
     border-bottom-right-radius: 7px;
     background-color: #4f4f4f;
@@ -70,7 +93,7 @@ header {
 
 /* ---- ---- */
 
-#part_2a {
+#part_2_0 {
     border-top-left-radius: 7px;
     border-top-right-radius: 7px;
     background-color: #4f4f4f;
@@ -81,7 +104,7 @@ header {
     text-align: center;
 }
 
-#part_2b, #part_2c {
+#part_2_1, #part_2_2 {
     background-color: #4f4f4f;
     padding-top: 5px;
     padding-bottom: 5px;
@@ -90,7 +113,7 @@ header {
     text-align: center;
 }
 
-#part_2d {
+#part_2_3 {
     border-bottom-left-radius: 7px;
     border-bottom-right-radius: 7px;
     background-color: #4f4f4f;
@@ -104,7 +127,7 @@ header {
 
 /* ---- ---- */
 
-#part_3a {
+#part_3_0 {
     border-top-left-radius: 7px;
     border-top-right-radius: 7px;
     background-color: #4f4f4f;
@@ -115,7 +138,7 @@ header {
     text-align: center;
 }
 
-#part_3b {
+#part_3_1 {
     border-bottom-left-radius: 7px;
     border-bottom-right-radius: 7px;
     background-color: #4f4f4f;
@@ -129,14 +152,20 @@ header {
 
 /* ---- ---- */
 
-#part_4a {
+#part_4_0 {
     border-radius: 7px;
     background-color: #4f4f4f;
-    padding-top: 5px;
+
     padding-bottom: 5px;
     padding-left: 30px;
     padding-right: 30px;
     text-align: center;
+}
+
+#part_4_0 img {
+    width: 3.5%;
+    position: relative;
+    top: 9px;
 }
 
 /* ---- ---- */
@@ -168,4 +197,14 @@ form input[name="submit_btn"] {
     font-size: 18px;
     background-color: #fff;
     border: 0px;
+}
+
+/* ---- ---- */
+
+#map {
+    height: 450px;
+    width: 880px;
+    position: relative;
+    top: 60px;
+    margin: 0 auto;
 }
