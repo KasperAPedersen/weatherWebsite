@@ -2,83 +2,68 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-        <title>Untitled Document</title>
+        <title>Weather website | Swoopie</title>
         <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <link rel="stylesheet" href="weather.css?version=2" type="text/css">
 	</head>
 	<body>
         <header>
-            <h1>Weather</h1>
+            <a href="weather.html"><h1>Weather</h1></a>
         </header>
         
         <!-- Content here -->
 		<div id="container">
             <div id="part_1">
                     <script>
-                            function func1(selectedLocation){
-                                fetch("http://api.openweathermap.org/data/2.5/weather?q=" + selectedLocation + "&APPID=b0b9b5f8ae5db4b46ee0da30e7e4c35c") // Calling API
-                             .then((response => {
-                                 if(response.status !== 200) // Checking for loading failure
-                                     throw new Error("Failure"); // throwing error if any
+                        function func1(selectedLocation){
+                            fetch("http://api.openweathermap.org/data/2.5/weather?q=" + selectedLocation + "&APPID=b0b9b5f8ae5db4b46ee0da30e7e4c35c") // Calling API
+                                .then((response => {
+                                    if(response.status !== 200) // Checking for loading failure
+                                        throw new Error("Failure"); // throwing error if any
                                  
-                                 return response.json(); // respond in json format
-                             }))
-                             .then((json) => {
-                                 console.log(json); // print out json in console
-                                 // ---- Printing data ----
-                                 let h1 = document.createElement("h1");
-                                 h1.textContent = json.name;
-                                 h1.id = "part_1a";
-                                 container.appendChild(h1);
+                                    return response.json(); // respond in json format
+                                }))
+                                .then((json) => {
+                                    console.log(json); // print out json in console
                                  
-                                 let p = document.createElement("p");
-                                 p.textContent = "Country: " + json.sys.country;
-                                 p.id = "part_1b";
-                                 container.appendChild(p);
-                                 
-                                 let p0 = document.createElement("p");
-                                 p0.textContent = "Coords: " + json.coord.lat + ", " + json.coord.lon;
-                                 p0.id = "part_1c";
-                                 container.appendChild(p0);
-                             })
-                            }
-                            
-                    </script>
+                                    // ---- Printing data ----
+                                    let items = Array(json.name, "Country: " + json.sys.country, "Coords: " + json.coord.lat + ", " + json.coord.lon);
+                                    let itemsType = Array("p", "h1");
+                                    let typeSelector = 0;
+                                    for(let x = 0; x < items.length; x++) {
+                                        if(x == 0) { typeSelector = 1; } else { typeSelector = 0; }
+                                        let y = document.createElement(itemsType[typeSelector]); // Creating element
+                                        y.textContent = items[x]; // Setting element content
+                                        y.id = "part_1_" + x; // Setting element id
+                                        document.getElementById("container").appendChild(y); // Adding element to end of container
+                                    }
+                                    initMap(json.coord.lat, json.coord.lon); // Calling Google Map
+                                })
+                        }
+                </script>
             </div>
             <div id="part_2">
                 <script>
                     function func2(selectedLocation){
                         fetch("http://api.openweathermap.org/data/2.5/weather?q=" + selectedLocation + "&APPID=b0b9b5f8ae5db4b46ee0da30e7e4c35c") // Calling API
-                    .then((response => {
-                        if(response.status !== 200) // Checking for loading failure
-                            throw new Error("Failure"); // throwing error if any
+                            .then((response => {
+                                if(response.status !== 200) // Checking for loading failure
+                                    throw new Error("Failure"); // throwing error if any
                         
-                        return response.json(); // respond in json format
-                    }))
-                    .then((json) => {
-                        console.log(json); // print out json in console
-                        // ---- Printing data ----
-                        let p1 = document.createElement("p");
-                        p1.textContent = "Max temp: " + json.main.temp_max;
-                        p1.id = "part_2a";
-                        container.appendChild(p1);
-                        
-                        let p2 = document.createElement("p");
-                        p2.textContent = "Min temp: " + json.main.temp_min;
-                        p2.id = "part_2b";
-                        container.appendChild(p2);
-                        
-                        let p3 = document.createElement("p");
-                        p3.textContent = "Pressure: " + json.main.pressure;
-                        p3.id = "part_2c";
-                        container.appendChild(p3);
-                        
-                        let p4 = document.createElement("p");
-                        p4.textContent = "Humidity: " + json.main.humidity;
-                        p4.id = "part_2d";
-                        container.appendChild(p4);
-                    })
+                                return response.json(); // respond in json format
+                            }))
+                            .then((json) => {
+                                console.log(json); // print out json in console
+                                // ---- Printing data ----
+                                let items = Array("Max temp: " + json.main.temp_max, "Min temp: " + json.main.temp_min, "Pressure: " + json.main.pressure, "Humidity: " + json.main.humidity);
+                                for(let x = 0; x < items.length; x++) {
+                                    let y = document.createElement("p"); // Creating p element
+                                    y.textContent = items[x]; // Setting content of element
+                                    y.id = "part_2_" + x; // Setting element id
+                                    document.getElementById("container").appendChild(y); // Adding element to end of container
+                                }
+                            })
                     }
                 </script>
             </div>
@@ -86,71 +71,82 @@
                 <script>
                     function func3(selectedLocation) {
                         fetch("http://api.openweathermap.org/data/2.5/weather?q=" + selectedLocation + "&APPID=b0b9b5f8ae5db4b46ee0da30e7e4c35c") // Calling API
-                    .then((response => {
-                        if(response.status !== 200) // Checking for loading failure
-                            throw new Error("Failure"); // throwing error if any
+                            .then((response => {
+                                if(response.status !== 200) // Checking for loading failure
+                                    throw new Error("Failure"); // throwing error if any
                         
-                        return response.json(); // respond in json format
-                    }))
-                    .then((json) => {
-                        console.log(json); // print out json in console
-                        // ---- Printing data ----                        
-                        let p5 = document.createElement("p");
-                        p5.textContent = "Wind speed: " + json.wind.speed;
-                        p5.id = "part_3a";
-                        container.appendChild(p5);
-
-                        let p6 = document.createElement("p");
-                        p6.textContent = "Wind degrees: " + json.wind.deg;
-                        p6.id = "part_3b";
-                        container.appendChild(p6);
-                        console.log(json.wind);
-                    })
+                                return response.json(); // respond in json format
+                            }))
+                            .then((json) => {
+                                console.log(json); // print out json in console
+                                // ---- Printing data ----  
+                                let items = Array("Wind speed: " + json.wind.speed, "Wind degrees: " + json.wind.deg);
+                                for(let x = 0; x < items.length; x++) {
+                                    let y = document.createElement("p"); // Creating p element
+                                    y.textContent = items[x]; // Setting content of element
+                                    y.id = "part_3_" + x; // Setting id to element
+                                    document.getElementById("container").appendChild(y); // Adding element to end of container
+                                }
+                            })
                     }
                 </script>
             </div>
             <div id="part_4">
                 <script>
-                        function func4(selectedLocation){
-                            fetch("http://api.openweathermap.org/data/2.5/weather?q=" + selectedLocation + "&APPID=b0b9b5f8ae5db4b46ee0da30e7e4c35c") // Calling API
-                         .then((response => {
-                             if(response.status !== 200) // Checking for loading failure
-                                 throw new Error("Failure"); // throwing error if any
+                    function func4(selectedLocation){
+                        fetch("http://api.openweathermap.org/data/2.5/weather?q=" + selectedLocation + "&APPID=b0b9b5f8ae5db4b46ee0da30e7e4c35c") // Calling API
+                            .then((response => {
+                                if(response.status !== 200) // Checking for loading failure
+                                    throw new Error("Failure"); // throwing error if any
                              
-                             return response.json(); // respond in json format
-                         }))
-                         .then((json) => {
-                             console.log(json); // print out json in console
-                             // ---- Printing data ----                                                
-                             let p6 = document.createElement("p");
-                             p6.textContent = "Weather: " + json.weather[0].description;
-                             p6.id = "part_4a";
-                             container.appendChild(p6);
-                         })
-                        }
+                                return response.json(); // respond in json format
+                            }))
+                            .then((json) => {
+                                console.log(json); // print out json in console
+                                // ---- Printing data ----
+                                let y = document.createElement("p"); // Creating p element
+                                y.innerHTML = "<img src='http://openweathermap.org/img/w/" + json.weather[0].icon + ".png'>" + json.weather[0].description;
+                                y.id = "part_4_0"; // Setting id to element
+                                document.getElementById("container").appendChild(y); // Adding element to end of container
+                            })
+                    }
                 </script>
             </div>
             <div id="part_5">
                 <form name="changeLocationForm" id="form">
-                    <h1>Change Location</h1>
+                    <h1>Select Location</h1>
                     <input type="text" name="chooseLocation" placeholder="Choose Location">
                     <input type="submit" name="submit_btn" value="Set Location">
                 </form>
             </div>
         </div>
+        <div id="part_6">
+                <div id="map"></div>
+                    <script>
+                    function initMap(getLat, getLon) {
+                        var mapOptions = {
+                            center: new google.maps.LatLng(getLat, getLon), // Setting latitude & longitude
+                            zoom: 10 // Setting zoom to '10' (cities)
+                        };
+                        var map = new google.maps.Map(document.getElementById("map"), mapOptions); // Creating new map
+                    }
+                </script>
+                <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA-kNNvTTNCuXbfuMY2hmF5B7vUae1vbGg"
+                async defer></script>
+            </div>
         <script>
             $(function(){
                 $("#form").submit(function(e) {
                     e.preventDefault(); // Preventing refresh of website
                     let chosenLocation = document.forms["changeLocationForm"]["chooseLocation"].value; // Grabbing input value
-                    
-                    if(chosenLocation == "" || chosenLocation == undefined) { // checking if input is missing
-                        alert("Please fill out the form"); // alert user
+                    if(chosenLocation == "") { // Checking if input is missing
+                        alert("Please fill out the form"); // Alert user
                     } else {
-                        func1(chosenLocation); // call function
-                        func2(chosenLocation); // call function
-                        func3(chosenLocation); // call function
-                        func4(chosenLocation); // call function
+                        $("#form").css("display", "none"); // Hiding form
+                        func1(chosenLocation); // Call function
+                        func2(chosenLocation); // Call function
+                        func3(chosenLocation); // Call function
+                        func4(chosenLocation); // Call function
                     }
                 });
             });
